@@ -1,3 +1,9 @@
+//Contributors
+//Code_Management & Debugging -- NawaZ
+//Questions_Mental_Ablity -- Sathvik
+//Questions_General_Knowledge -- Gagandeep
+//Questions_C_Programming -- Roshan
+//Source -- ChatGPt & Co-Pilot
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +15,7 @@
 typedef struct {
     char question[256];
     char options[4][100];
-    int correct_option; // Correct option index (0-3)
+    int correct_option;
 } Question;
 
 // Categories
@@ -18,7 +24,6 @@ Question general_knowledge[MAX_QUESTIONS];
 Question c_programming[MAX_QUESTIONS];
 Question test_questions[TEST_QUESTIONS];
 
-// Function prototypes
 void initialize_questions();
 void shuffle(int arr[], int size);
 void conduct_quiz(const char* category, Question questions[], int question_count, int num_questions);
@@ -39,7 +44,7 @@ int main() {
     char name[50];
     int choice;
 
-    // Seed the random number generator
+    //random number generator
     srand(time(NULL));
 
     printf("Welcome to the Quiz!\n");
