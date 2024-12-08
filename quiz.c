@@ -1060,34 +1060,42 @@ void initialize_questions() {
 
 }
 
-void shuffle(int arr[], int size) {
-    for (int i = size - 1; i > 0; i--) {
-        int j = rand() % (i + 1);
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-}
+
 
 void conduct_quiz(const char* category, Question questions[], int question_count, int num_questions) {
     printf("\nStarting %s Quiz!\n", category);
 
-    int selected_questions[num_questions];
-    for (int i = 0; i < num_questions; i++) selected_questions[i] = i;
+    if (question_count == 0) {
+        printf("Sorry, there are no questions available in this category.\n");
+        return;
+    }
 
-    // Shuffle and pick random questions
+    if (num_questions > question_count) {
+        num_questions = question_count;
+    }
+
+    int selected_questions[question_count];
+    for (int i = 0; i < question_count; i++) selected_questions[i] = i;
+
     shuffle(selected_questions, question_count);
 
     int score = 0;
     for (int i = 0; i < num_questions; i++) {
         int q_index = selected_questions[i];
         printf("\nQ%d: %s\n", i + 1, questions[q_index].question);
+
         for (int j = 0; j < 4; j++) {
             printf("%d. %s\n", j + 1, questions[q_index].options[j]);
         }
+
         int answer;
         printf("Your answer: ");
         scanf("%d", &answer);
+
+        while (answer < 1 || answer > 4) {
+            printf("Invalid choice! Please enter a number between 1 and 4: ");
+            scanf("%d", &answer);
+        }
 
         if (answer - 1 == questions[q_index].correct_option) {
             printf("Correct!\n");
@@ -1097,8 +1105,10 @@ void conduct_quiz(const char* category, Question questions[], int question_count
                    questions[q_index].options[questions[q_index].correct_option]);
         }
     }
+
     printf("\nYou scored %d out of %d in the %s Quiz.\n", score, num_questions, category);
 }
+
 
 void prepare_test_category() {
     int total_questions = 0;
